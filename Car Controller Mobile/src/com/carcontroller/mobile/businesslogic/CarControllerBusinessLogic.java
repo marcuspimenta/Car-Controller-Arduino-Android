@@ -131,10 +131,10 @@ public class CarControllerBusinessLogic implements OnDirectionInClinationDeviceL
 	public void onDirectionInClinationDevice(int type) {
 		switch (type) {
 			case Constants.RIGHT:
-				sendMessage("a");
+				sendMessage(Constants.COMMAND_CAR_RIGHT);
 				break;
 			case Constants.LEFT:
-				sendMessage("b");
+				sendMessage(Constants.COMMAND_CAR_LEFT);
 				break;
 		}
 	}

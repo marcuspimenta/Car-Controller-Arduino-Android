@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
 
 import com.carcontroller.mobile.R;
 import com.carcontroller.mobile.businesslogic.CarControllerBusinessLogic;
@@ -19,6 +22,9 @@ import com.carcontroller.mobile.util.ToastUtil;
  */
 public class CarControllerActivity extends Activity implements GenericActivity{
 	
+	private ImageView imageViewOn;
+	private ImageView imageViewOff;
+	
 	private ToastUtil toastUtil;
 	private CarControllerBusinessLogic carControllerBusinessLogic;
 	
@@ -28,6 +34,7 @@ public class CarControllerActivity extends Activity implements GenericActivity{
 		setContentView(R.layout.activity_main);
 		
 		settingsAttributes();
+		settingsView();
 	}
 	
 	@Override
@@ -42,7 +49,23 @@ public class CarControllerActivity extends Activity implements GenericActivity{
 
 	@Override
 	public void settingsView() {
-		// TODO Auto-generated method stub
+		imageViewOn = (ImageView)findViewById(R.id.imageViewOn);
+		imageViewOn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				carControllerBusinessLogic.sendMessage(Constants.COMMAND_CAR_ON);
+			}
+		});
+		
+		imageViewOff = (ImageView)findViewById(R.id.imageViewOff);
+		imageViewOff.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				carControllerBusinessLogic.sendMessage(Constants.COMMAND_CAR_OFF);
+			}
+		});
 	}
 	
 	@Override
