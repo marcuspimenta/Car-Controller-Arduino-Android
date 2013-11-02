@@ -1,5 +1,8 @@
 package com.carcontroller.mobile.util;
 
+import com.carcontroller.mobile.businesslogic.Constants;
+import com.carcontroller.mobile.businesslogic.IBusinessLogic.OnDirectionInClinationDeviceListener;
+
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -17,8 +20,12 @@ public class OrientationUtil implements SensorEventListener {
 
 	private Sensor orientation;
 	private SensorManager sensorManager;
+	
+	private OnDirectionInClinationDeviceListener onDirectionInClinationDeviceListener;
 
-	public OrientationUtil(Context context) {
+	public OrientationUtil(Context context, OnDirectionInClinationDeviceListener onDirectionInClinationDeviceListener) {
+		this.onDirectionInClinationDeviceListener = onDirectionInClinationDeviceListener;
+		
 		sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 		orientation = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
 	}
@@ -38,13 +45,15 @@ public class OrientationUtil implements SensorEventListener {
 			
 			if(event.values[1] > 20){
 				LogUtil.i("left");
+				onDirectionInClinationDeviceListener.onDirectionInClinationDevice(Constants.LEFT);
 				
 			}else if(event.values[1] < -20){
 				LogUtil.i("right");
+				onDirectionInClinationDeviceListener.onDirectionInClinationDevice(Constants.RIGHT);
 				
 			}else{
 				LogUtil.i("direct");
-				
+				onDirectionInClinationDeviceListener.onDirectionInClinationDevice(Constants.DIRECT);
 			}
 		}
 	}

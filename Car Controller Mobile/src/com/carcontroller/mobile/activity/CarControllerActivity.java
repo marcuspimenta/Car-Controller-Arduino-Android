@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.carcontroller.mobile.R;
-import com.carcontroller.mobile.util.OrientationUtil;
+import com.carcontroller.mobile.businesslogic.CarControllerBusinessLogic;
 
 /**
  * 
@@ -12,30 +12,38 @@ import com.carcontroller.mobile.util.OrientationUtil;
  * @email mvinicius.pimenta@gmail.com
  * @date 09:28:10 02/11/2013
  */
-public class MainActivity extends Activity {
+public class CarControllerActivity extends Activity implements GenericActivity{
 	
-	private OrientationUtil accelerometerUtil;
-
+	private CarControllerBusinessLogic carControllerBusinessLogic;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		accelerometerUtil = new OrientationUtil(this);
+	}
+	
+	@Override
+	public void settingsAttributes() {
+		carControllerBusinessLogic = new CarControllerBusinessLogic(this);
+	}
+
+	@Override
+	public void settingsView() {
+		// TODO Auto-generated method stub
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
 		
-		accelerometerUtil.startSensor();
+		carControllerBusinessLogic.startSensor();
 	}
 	
 	@Override
 	protected void onPause() {
 		super.onPause();
 		
-		accelerometerUtil.stopSensor();
+		carControllerBusinessLogic.stopSensor();
 	}
 
 }
